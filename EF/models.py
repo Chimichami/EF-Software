@@ -31,6 +31,7 @@ class StudentContext:
     def __post_init__(self):
         """Se ejecuta automáticamente al crear el objeto."""
         self._validate_id_format()
+        self._validate_evaluations_limit()  # <--- NUEVO: Llama a la validación de cantidad
 
     def _validate_id_format(self):
         """
@@ -49,3 +50,11 @@ class StudentContext:
         
         if not re.match(pattern, self.student_id):
             raise ValueError(f"ID inválido '{self.student_id}'. Debe ser Año + 10/20 + 3 dígitos (Ej: 202310123).")
+
+    def _validate_evaluations_limit(self):
+        """
+        Validación lógica para evitar sobrecarga de datos.
+        Límite máximo de 10 evaluaciones por alumno.
+        """
+        if len(self.evaluations) > 10:
+            raise ValueError(f"No se pueden registrar más de 10 evaluaciones (Tienes {len(self.evaluations)}).")

@@ -10,21 +10,24 @@ class TestGradeCalculator(unittest.TestCase):
     def test_standard_calculation(self):
         """RF01/RF04: Cálculo normal con puntos extra."""
         evals = [Evaluation("P1", 15, 50), Evaluation("P2", 15, 50)] 
-        ctx = StudentContext("U1", evals, True, [True, True])
+        # CORREGIDO: Usamos un ID válido (2021 + 10 + 001) en lugar de "U1"
+        ctx = StudentContext("202110001", evals, True, [True, True])
         result = self.calculator.calculate_final_grade(ctx)
         self.assertEqual(result['final_grade'], 16.0) # 15 + 1 extra
 
     def test_fail_due_to_attendance(self):
         """RF02: Falla por inasistencia."""
         evals = [Evaluation("P1", 20, 100)]
-        ctx = StudentContext("U2", evals, False, [True])
+        # CORREGIDO: Usamos un ID válido
+        ctx = StudentContext("202110002", evals, False, [True])
         result = self.calculator.calculate_final_grade(ctx)
         self.assertEqual(result['final_grade'], 0.0)
 
     def test_grade_cap_at_20(self):
         """RNF01: Tope máximo de 20."""
         evals = [Evaluation("P1", 20, 100)]
-        ctx = StudentContext("U3", evals, True, [True])
+        # CORREGIDO: Usamos un ID válido
+        ctx = StudentContext("202110003", evals, True, [True])
         result = self.calculator.calculate_final_grade(ctx)
         self.assertEqual(result['final_grade'], 20.0)
 

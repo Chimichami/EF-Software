@@ -1,0 +1,5 @@
+class AppConfig:
+    MAX_FINAL_GRADE = 20.0
+    MIN_GRADE = 0.0
+    MAX_WEIGHT_PERCENT = 100.0
+    EXTRA_POINTS_VALUE = 1.0
